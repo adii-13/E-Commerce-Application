@@ -10,10 +10,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +27,7 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String email;
 	@Column(nullable = false, unique = true)
-	private long mobile;
+	private Long mobile;
 	@Column(nullable = false)
 	private String password;
 	@Enumerated(EnumType.STRING)
