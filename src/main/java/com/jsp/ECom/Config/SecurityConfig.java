@@ -20,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
 	private final JwtFilter jwtFilter;
 
 	@Bean
@@ -36,7 +35,8 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain chain(HttpSecurity http) {
 		return http.csrf(x -> x.disable())
-				.authorizeHttpRequests(x -> x.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(x -> x.requestMatchers("/auth/**").permitAll()
+						.requestMatchers("/customers/products").permitAll().anyRequest().authenticated())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
 	}
