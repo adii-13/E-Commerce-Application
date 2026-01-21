@@ -39,14 +39,14 @@ public class AuthController {
 
 	@GetMapping("/me")
 	@ResponseStatus(HttpStatus.OK)
-	@PreAuthorize("hasAnyRole('ADMIN','USER','MERCHANT')")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER','MERCHANT')")
 	public Map<String, Object> viewLoggedInUser(Principal principal) {
 		return authService.viewUser(principal.getName());
 	}
 
 	@PatchMapping("/password")
 	@ResponseStatus(HttpStatus.OK)
-	@PreAuthorize("hasAnyRole('ADMIN','USER','MERCHANT')")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER','MERCHANT')")
 	public Map<String, Object> updatePassword(Principal principal, @Valid @RequestBody PasswordDto passwordDto) {
 		return authService.updatePassword(principal.getName(), passwordDto.getOldPassword(),
 				passwordDto.getNewPassword());
@@ -57,39 +57,35 @@ public class AuthController {
 	public Map<String, Object> registerMerchantAccount(@Valid @RequestBody MerchantDto merchantDto) {
 		return authService.registerMerchant(merchantDto);
 	}
-	
-	
+
 	@PatchMapping("/merchant/otp")
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> verifyOtp(@Valid
-			@RequestBody OtpDto dto){
+	public Map<String, Object> verifyOtp(@Valid @RequestBody OtpDto dto) {
 		return authService.verifyMerchantOtp(dto);
 	}
-	
+
 	@PatchMapping("/merchant/resend/{email}")
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> resendOtp(@PathVariable String email){
+	public Map<String, Object> resendOtp(@PathVariable String email) {
 		return authService.resendMerchantOtp(email);
 	}
-	
+
 	@PostMapping("/customer/register")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Map<String, Object> registerCustomerAccount(@Valid @RequestBody CustomerDto customerDto) {
 		return authService.registerCustomer(customerDto);
 	}
-	
-	
+
 	@PatchMapping("/customer/otp")
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> verifyCustomerOtp(@Valid
-			@RequestBody OtpDto dto){
+	public Map<String, Object> verifyCustomerOtp(@Valid @RequestBody OtpDto dto) {
 		return authService.verifyCustomerOtp(dto);
 	}
-	
+
 	@PatchMapping("/customer/resend/{email}")
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> resendCustomerOtp(@PathVariable String email){
+	public Map<String, Object> resendCustomerOtp(@PathVariable String email) {
 		return authService.resendCustomerOtp(email);
 	}
-	
+
 }
