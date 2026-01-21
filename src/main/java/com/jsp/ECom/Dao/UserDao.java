@@ -7,8 +7,10 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Repository;
 
 import com.jsp.ECom.Entity.Customer;
+import com.jsp.ECom.Entity.CustomerOrder;
 import com.jsp.ECom.Entity.Merchant;
 import com.jsp.ECom.Entity.User;
+import com.jsp.ECom.Repository.CustomerOrderRepository;
 import com.jsp.ECom.Repository.CustomerRepository;
 import com.jsp.ECom.Repository.MerchantRepository;
 import com.jsp.ECom.Repository.UserRepository;
