@@ -5,8 +5,11 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import com.jsp.ECom.Dto.FakeStoreData;
 import com.jsp.ECom.Dto.ItemDto;
+import com.jsp.ECom.Dto.OrderDto;
 import com.jsp.ECom.Dto.ProductDto;
+import com.jsp.ECom.Entity.CustomerOrder;
 import com.jsp.ECom.Entity.Item;
 import com.jsp.ECom.Entity.Merchant;
 import com.jsp.ECom.Entity.Product;
@@ -33,4 +36,17 @@ public interface ProductMapper {
 
 	List<ItemDto> toItemsDtoList(List<Item> items);
 
+	@Mapping(target = "name", expression = "java(data.getTitle())")
+	@Mapping(target = "approved", ignore = true)
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "merchant", expression = "java(merchant)")
+	@Mapping(target = "brand", expression = "java(merchant.getName())")
+	@Mapping(target = "size", constant = "FREE")
+	@Mapping(target = "stock", constant = "20")
+	Product toProductEntity(FakeStoreData data, Merchant merchant);
+	
+	
+	OrderDto toOrderDto(CustomerOrder order);
+
+	List<OrderDto> toOrderDtos(List<CustomerOrder> orders);
 }

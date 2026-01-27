@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.jsp.ECom.Security.JwtFilter;
 
 import lombok.RequiredArgsConstructor;
-
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor

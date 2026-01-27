@@ -24,5 +24,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	Page<Product> findByApprovedTrueAndCategory(String category, PageRequest of);
 
 	Slice<Product> findByPriceBetweenAndApprovedTrue(double lowerRange, double higherRange, PageRequest of);
+
 }
 

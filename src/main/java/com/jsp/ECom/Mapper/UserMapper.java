@@ -7,11 +7,11 @@ import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.jsp.ECom.Dto.MerchantDto;
 import com.jsp.ECom.Dto.CustomerDto;
+import com.jsp.ECom.Dto.MerchantDto;
 import com.jsp.ECom.Dto.UserDto;
-import com.jsp.ECom.Entity.Merchant;
 import com.jsp.ECom.Entity.Customer;
+import com.jsp.ECom.Entity.Merchant;
 import com.jsp.ECom.Entity.User;
 
 @Mapper(componentModel = "spring")
@@ -25,7 +25,7 @@ public abstract class UserMapper {
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "username", source = "name")
-	@Mapping(target = "role", expression = "java(com.jsp.ecommerce.enums.UserRole.MERCHANT)")
+	@Mapping(target = "role", expression = "java(com.jsp.ECom.Enum.UserRole.MERCHANT)")
 	@Mapping(target = "active", expression = "java(true)")
 	@Mapping(target = "password", expression = "java(passwordEncoder.encode(merchantDto.getPassword()))")
 	public abstract User toUserEntity(MerchantDto merchantDto);
@@ -43,7 +43,7 @@ public abstract class UserMapper {
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "username", source = "name")
-	@Mapping(target = "role", expression = "java(com.jsp.ecommerce.enums.UserRole.CUSTOMER)")
+	@Mapping(target = "role", expression = "java(com.jsp.ECom.Enum.UserRole.CUSTOMER)")
 	@Mapping(target = "active", expression = "java(true)")
 	@Mapping(target = "password", expression = "java(passwordEncoder.encode(customerDto.getPassword()))")
 	public abstract User toUserEntity(CustomerDto customerDto);
