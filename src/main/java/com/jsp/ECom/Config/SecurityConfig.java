@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import static org.springframework.security.config.Customizer.withDefaults;
 import com.jsp.ECom.Security.JwtFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -32,11 +32,17 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	SecurityFilterChain chain(HttpSecurity http) {
-		return http.csrf(x -> x.disable())
-				.authorizeHttpRequests(x -> x.requestMatchers("/auth/**").permitAll()
-						.requestMatchers("/customers/products").permitAll().anyRequest().authenticated())
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-				.sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
+	SecurityFilterChain chain(HttpSecurity http) throws Exception {
+	    return http
+	        .cors(withDefaults())   // ✅ CORRECT WAY IN SPRING SECURITY 6
+	        .csrf(csrf -> csrf.disable())
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/auth/**").permitAll()
+	            .requestMatchers("/customers/products").permitAll()
+	            .anyRequest().authenticated()
+	        )
+	        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	        .build();
 	}
 }
